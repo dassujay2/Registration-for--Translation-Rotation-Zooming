@@ -2,7 +2,7 @@ remove(list = ls())
 library(matlab)
 library(DRIP)
 library(jpeg)
-library(OpenImageR)
+
 
 ############################
 ##Reading the image into R##
@@ -47,12 +47,19 @@ edge_mod_eff<-edge_mod[indx,]    ##Effective edge points
 ###########Registration Algorithm################
 #################################################
 
-w1<-30 ##pad-width
+
+#Here we are generating the registered image for the `Aral Sea' image for r1=8 and r2=16.
+
+#For any other image and and any other r1 and r2 value, we can generate the regitered images accordingly.
+#For that we need to change the `im1, im2, r1 and r2' accordingly.
+
+w1<-30  ##pad-width
 
 
 img<- im1  ##Reference image
 img_zoom<- im2  ##Zoomed image
 
+#Change the parameter values of r1 and r2 below.
 r1=8
 r2=16
 
