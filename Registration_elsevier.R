@@ -9,6 +9,26 @@ packageVersion("DRIP")
 packageVersion("jpeg")
 packageVersion("OpenImageR")
 
+# ######################################
+# #### Creation of Simulated image #####
+# ######################################
+# sim=matrix(0,128,128)
+# for(i in 1:128){
+#   for(j in 1:128){
+#     if(((i-64)^2/400)+((j-64)^2/225)<1){
+#       sim[i,j]=1
+#     }
+#   }
+# }
+# 
+# sim[51:70,41:90]<-1
+# 
+# im1<-sim
+# im2<-readJPEG("sim_rz.jpg")
+# im2<-translation(im2,shift_rows = 2,shift_cols = 2)
+
+#For simulated image uncomment the above lines.
+
 
 ############################
 ##Reading the image into R##
@@ -39,11 +59,13 @@ for(i in 1:nrow(edge_mod))
 
 edge_dist_srt<-sort(edge_dist)
 
+n_20<-floor(length(edge_dist)*20/100)
+
 #############################################################################
 ######index of 20% edge-points having least distance from the origin################
 #############################################################################
 indx<-NULL
-for (i in 1:243)
+for (i in 1:n_20)
 {
   indx<-c(indx,match(edge_dist_srt[i],edge_dist))
 }  
