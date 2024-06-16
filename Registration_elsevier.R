@@ -267,96 +267,16 @@ theta4_var<-NULL
     th2<- mean(theta_L2,na.rm = TRUE)
     th3<- median(theta_L1,na.rm = TRUE)
     th4<- median(theta_L2,na.rm = TRUE)
+               
     
-    theta1<-c(theta1,mean(theta_L1,na.rm = TRUE))
-    theta2<-c(theta2,mean(theta_L2,na.rm = TRUE))
-    theta3<-c(theta3,mean(theta_MI,na.rm = TRUE))
-    theta4<-c(theta4,mean(theta_L2Mi,na.rm=TRUE))
-    
-    theta1_med<-c(theta1_med,median(theta_L1,na.rm = TRUE))
-    theta2_med<-c(theta2_med,median(theta_L2,na.rm = TRUE))
-    theta3_med<-c(theta3_med,median(theta_MI,na.rm=TRUE))
-    theta4_med<-c(theta4_med,median(theta_L2Mi,na.rm=TRUE))
-    
-    theta1_var<-c(theta1_var,var(theta_L1,na.rm = TRUE))
-    theta2_var<-c(theta2_var,var(theta_L2,na.rm=TRUE))
-    theta3_var<-c(theta3_var,var(theta_MI,na.rm=TRUE))
-    theta4_var<-c(theta4_var,var(theta_L2Mi,na.rm=TRUE))
-    
-    
-    
-    #   }
-    # }
-    # n=proc.time()
-    # 
-    # dt<-data.frame(theta1,theta2,theta3,theta4,theta1_med,theta2_med,theta3_med,theta4_med,
-    #                theta1_var,theta2_var,theta3_var,theta4_var)
-    # 
-    # write.csv(dt,"theta.csv")
-    
-    # windows(10,10)
-    # hist(theta_L1,breaks = seq(0,180,by=5))
-    # mean(theta_L1,trim = 0.00025)
-    # mean(theta_L2)
-    
-    #min(theta_L2)
-    
-    
-    # s_L1<-0
-    # h_L1<-0
-    # m_L1<-0
     
     s_L1<-0
     h_L1<-0
     m_L1<-0
     
-    # z1<-0
-    # z2<-0
+      
     
-    
-    # mod_L1_x<-list()
-    # z1<- cos(th1*pi/180)*edge_x_L1 +sin(th1*pi/180)*edge_y_L1
-    # mod_L1_x<-lm(edge_x~ z1 )
-    
-    # mod_L1_y<-list()
-    # z2<- (-1)*sin(th1*pi/180)*edge_x_L1+ cos(th1*pi/180)*edge_y_L1
-    # mod_L1_y<-lm(edge_y~ z2)
-    
-    # s_L1= round(mod_L1_x$coefficients[2],2)
-    # h_L1= mod_L1_x$coefficients[1]
-    # m_L1=mod_L1_y$coefficients[1]
-    
-    
-    
-    
-    # reg_L1<- matrix(NA, nrow = nrow(mat1),ncol = ncol(mat1))
-    # i1<-0
-    # j1<-0
-    # for(i in 1:(nrow(mat1)))
-    # {
-    #   for(j in 1:(ncol(mat1)))
-    #   {
-    #     i1<- ceiling(((i-h_L1)/s_L1)*cos(th1*pi/180) - ((j-m_L1)/s_L1)*sin(th1*pi/180))
-    #     j1<- ceiling(((i-h_L1)/s_L1)*sin(th1*pi/180) + ((j-m_L1)/s_L1)*cos(th1*pi/180))
-    #     if(is.nan(i1)==TRUE)
-    #       i1<-i
-    #     else if(i1<1)
-    #       i1<-1
-    #     else if(i1>nrow(mat1))
-    #       i1<-nrow(mat1)
-    # 
-    #     if(is.nan(j1)==TRUE)
-    #       j1<-j
-    #     else if(j1<1)
-    #       j1<-1
-    #     else if(j1>nrow(mat1))
-    #       j1<-nrow(mat1)
-    # 
-    #     reg_L1[i1,j1]<-mat1[i,j]
-    #   }
-    # }
-    # 
-    
+           
     ex_L1<-0
     ey_L1<-0
     ex_L2<-0
@@ -371,9 +291,7 @@ theta4_var<-NULL
     z2<-0
     
     z1<- cos(th1*pi/180)*ex_L1+  sin(th1*pi/180)*ey_L1
-    # mod_L2_x<-lm((edge_x)~ z3)
-    
-    # mod_L2_y<-list()
+         
     z2<- (-1)*sin(th1*pi/180)*ex_L1+ cos(th1*pi/180)*ey_L1
     
     A1<-matrix(rep(0,9),nrow = 3,ncol=3)
@@ -397,20 +315,12 @@ theta4_var<-NULL
     sol1<- rep(0,3)
     sol1<- solve(A1)%*%B1
     
-    # mod_L2_y<-lm((edge_y)~ z4)
-    # 
+    
     s_L1= sol1[1]
     h_L1= sol1[2]
     m_L1= sol1[3]
     
-    # s_L2= (round(mod_L2_x$coefficients[2],2)+round(mod_L2_y$coefficients[2],2))/2
-    # h_L2= mod_L2_x$coefficients[1]
-    # m_L2=mod_L2_y$coefficients[1]
-    # hh_L1<-0
-    # mm_L1<-0
-    # 
-    # hh_L1<- h_L1 +64 - s_L1*64*cos(th1*pi/180)- s_L1*64*sin(th1*pi/180)
-    # mm_L1<- m_L1 +64 + s_L1*64*sin(th1*pi/180)- s_L1*64*cos(th1*pi/180)
+    
     
     reg_L1<- matrix(NA, nrow = nrow(mat1),ncol = ncol(mat1))
     i1<-0
@@ -462,10 +372,8 @@ theta4_var<-NULL
     
     z3<-0
     z4<-0
-    
-    
-    
-    
+      
+        
     z3<- cos(th2*pi/180)*ex_L2+  sin(th2*pi/180)*ey_L2
     
     z4<- (-1)*sin(th2*pi/180)*ex_L2+ cos(th2*pi/180)*ey_L2
