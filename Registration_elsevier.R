@@ -2,13 +2,18 @@ remove(list = ls())
 library(matlab)
 library(DRIP)
 library(jpeg)
+library(OpenImageR)
 
 
 ############################
 ##Reading the image into R##
 ############################
 im1<-readJPEG("aral1.jpg")
-im2<-readJPEG("aral_rzt.jpg")
+im2<-readJPEG("aral_rz.jpg") ##Rotated and zoomed
+
+###Adding translation componenet
+im2<-translation(im2,shift_rows = 2,shift_cols = 2)
+
 
 ####################
 ##Edge detection####
@@ -76,8 +81,6 @@ mat2<- padarray(img1,c(w1,w1),"symmetric","both")   ##Reference image (padded)
 edg<-edge_mod_eff +w1
 edge_reg_L1<-matrix(NA,nrow = nrow(edg),ncol = 2)
 edge_reg_L2<-matrix(NA,nrow = nrow(edg),ncol = 2)
-edge_reg_MI<-matrix(NA,nrow = nrow(edg),ncol = 2)
-edge_reg_L2Mi<-matrix(NA,nrow = nrow(edg),ncol = 2)
 
 edge_x<-edg[,1]
 edge_y<-edg[,2]
@@ -124,10 +127,7 @@ for(i in 1:nrow(edg))
             }
           }
         }
-        # cov1<-cov(N1,N2)
-        # sd1<-sqrt(var(N1))
-        # sd2<-sqrt(var(N2))
-        # r<-c(r,(cov1/(sd1*sd2)))
+
         msd<-c(msd,sum((N1-N2)^2)/N)
         mad<-c(mad,sum(abs(N1-N2))/N)
         xz<-c(xz,round(m1))
@@ -138,8 +138,8 @@ for(i in 1:nrow(edg))
   
   index_L2<-which.min(msd)
   index_L1<-which.min(mad)
- 
-
+  
+  
   edge_reg_L1[i,1] <- xz[index_L1]
   edge_reg_L1[i,2] <- yz[index_L1]
   
@@ -426,5 +426,3 @@ msd_L2
 # s_L1     ##Estimate of zooming factor
 # h_L1     ##Estimate of x-coordinate of the translation parameter
 # m_L1     ##Estimate of y-coordinate of the translation parameter
-
-
