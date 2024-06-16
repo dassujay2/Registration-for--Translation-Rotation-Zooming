@@ -1,8 +1,13 @@
 remove(list = ls())
-library(matlab)
-library(DRIP)
-library(jpeg)
-library(OpenImageR)
+library(matlab) #Version 1.0.2
+library(DRIP) #Version 1.7
+library(jpeg) #Version 0.1.9
+library(OpenImageR) #Version 1.2.1
+
+packageVersion("matlab")
+packageVersion("DRIP")
+packageVersion("jpeg")
+packageVersion("OpenImageR")
 
 
 ############################
@@ -18,10 +23,8 @@ im2<-translation(im2,shift_rows = 2,shift_cols = 2)
 ####################
 ##Edge detection####
 ####################
-windows(10,10)
-par(mfrow=c(1,2))
-edge_ref<-which(stepEdgeLL2K(image=im1,bandwidth=2,thresh=0.15,plot=TRUE)==1,arr.ind = TRUE)
-edge_zoomed<-which(stepEdgeLL2K(image=im2,bandwidth=2,thresh=0.15,plot=TRUE)==1,arr.ind = TRUE)
+edge_ref<-which(stepEdgeLL2K(image=im1,bandwidth=2,thresh=0.15,plot=FALSE)==1,arr.ind = TRUE)
+edge_zoomed<-which(stepEdgeLL2K(image=im2,bandwidth=2,thresh=0.15,plot=FALSE)==1,arr.ind = TRUE)
 
 #################################################################################
 #################################Nearest point to the center#####################
