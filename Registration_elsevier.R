@@ -64,29 +64,11 @@ r1=8
 r2=16
 
 m=proc.time()
-theta1<-NULL
-theta2<-NULL
-theta3<-NULL
-theta4<-NULL
 
-theta1_med<-NULL
-theta2_med<-NULL
-theta3_med<-NULL
-theta4_med<-NULL
-
-theta1_var<-NULL
-theta2_var<-NULL
-theta3_var<-NULL
-theta4_var<-NULL
-
-
-    img1<-img  #+ matrix(rnorm(nrow(img1)*ncol(img1),0,0.01),nrow = nrow(img1),ncol = ncol(img1))   ##reference image (w-noise)
-    img_zoom1<-img_zoom  #+ matrix(rnorm(nrow(img_zoom1)*ncol(img_zoom1),0,0.01),nrow = nrow(img_zoom1),ncol = ncol(img_zoom1)) ##Zoomed image ( w-noise)
+    img1<-img  
+    img_zoom1<-img_zoom  
     
-    # edge_ref<-which(stepEdgeLC2K(image=img1,bandwidth=2,thresh=0.1,plot=FALSE)==1,arr.ind = TRUE)
-    #edge_zoomed<-which(stepEdgeLC2K(image=img_zoom1,bandwidth=2,thresh=0.1,plot=FALSE)==1,arr.ind = TRUE)
-    
-    
+     
     mat1<- padarray(img_zoom1,c(w1,w1),"symmetric","both") ##Zoomed image (padded)
     mat2<- padarray(img1,c(w1,w1),"symmetric","both")   ##Reference image (padded)
     
@@ -209,74 +191,40 @@ theta4_var<-NULL
     b2<-matrix(NA,nrow = nrow(edg),ncol = 2)
     b2<- edge_reg_L2 -w1
     
-    a3<-matrix(NA,nrow = nrow(edg),ncol = 2)
-    a3<- edg-matrix(rep(c(mean(edg[,1]),mean(edg[,2])),nrow(edg)),ncol=2,byrow = TRUE)+ matrix(rep(c(mean(edge_reg_MI[,1]),mean(edge_reg_MI[,2])),nrow(edg)),ncol=2,byrow = TRUE) -w1
-    
-    b3<-matrix(NA,nrow = nrow(edg),ncol = 2)
-    b3<- edge_reg_MI -w1
-    
-    a4<-matrix(NA,nrow = nrow(edg),ncol = 2)
-    a4<- edg-matrix(rep(c(mean(edg[,1]),mean(edg[,2])),nrow(edg)),ncol=2,byrow = TRUE)+ matrix(rep(c(mean(edge_reg_L2Mi[,1]),mean(edge_reg_L2Mi[,2])),nrow(edg)),ncol=2,byrow = TRUE) -w1
-    
-    b4<-matrix(NA,nrow = nrow(edg),ncol = 2)
-    b4<- edge_reg_L2Mi -w1 
-    
+     
     theta_L1<-NULL
     theta_L2<-NULL
-    theta_MI<-NULL
-    theta_L2Mi<-NULL
     th1<-0
     th2<-0
-    th3<-0
-    th4<-0
     x1<-0 
     x2<-0
-    x3<-0
-    x4<-0
     y11<-0
     y12<-0
-    y13<-0
-    y14<-0
     y2<-0
     y3<-0
-    y4<-0
-    y5<-0
     for(i in 1:nrow(edg))
     {
       x1<- sum(c(a1[i,1]-64,a1[i,2]-64)* c(b1[i,1]-64,b1[i,2]-64))
       x2<- sum(c(a2[i,1]-64,a2[i,2]-64)* c(b2[i,1]-64,b2[i,2]-64))
-      x3<- sum(c(a3[i,1]-64,a3[i,2]-64)* c(b3[i,1]-64,b3[i,2]-64))
-      x4<- sum(c(a4[i,1]-64,a4[i,2]-64)* c(b4[i,1]-64,b4[i,2]-64))
-      
+           
       y11<- sum(c(a1[i,1]-64,a1[i,2]-64)* c(a1[i,1]-64,a1[i,2]-64))
       y12<- sum(c(a2[i,1]-64,a2[i,2]-64)* c(a2[i,1]-64,a2[i,2]-64))
-      y13<- sum(c(a3[i,1]-64,a3[i,2]-64)* c(a3[i,1]-64,a3[i,2]-64))
-      y14<- sum(c(a4[i,1]-64,a4[i,2]-64)* c(a4[i,1]-64,a4[i,2]-64))
-      
+           
       y2<- sum(c(b1[i,1]-64,b1[i,2]-64)* c(b1[i,1]-64,b1[i,2]-64))
       y3<- sum(c(b2[i,1]-64,b2[i,2]-64)* c(b2[i,1]-64,b2[i,2]-64))
-      y4<- sum(c(b3[i,1]-64,b3[i,2]-64)* c(b3[i,1]-64,b3[i,2]-64))
-      y5<- sum(c(b4[i,1]-64,b4[i,2]-64)* c(b4[i,1]-64,b4[i,2]-64))
-      
+           
       theta_L1<- c(theta_L1,acos(x1/sqrt(y11*y2))*180/pi)
       theta_L2<- c(theta_L2,acos(x2/sqrt(y12*y3))*180/pi)
-      theta_MI<- c(theta_MI,acos(x3/sqrt(y13*y4))*180/pi)
-      theta_L2Mi<- c(theta_L2Mi,acos(x4/sqrt(y14*y5))*180/pi)
     }
     th1<- mean(theta_L1,na.rm = TRUE)
     th2<- mean(theta_L2,na.rm = TRUE)
-    th3<- median(theta_L1,na.rm = TRUE)
-    th4<- median(theta_L2,na.rm = TRUE)
-               
-    
-    
+                
+       
     s_L1<-0
     h_L1<-0
     m_L1<-0
-    
-      
-    
-           
+         
+               
     ex_L1<-0
     ey_L1<-0
     ex_L2<-0
@@ -364,7 +312,7 @@ theta4_var<-NULL
         
       }
     }
-    msd_L1<-t1/n1  #######MSE under L1-norm
+    msd_L1<-t1/n1  ##MSE under L1-norm
     
     s_L2<-0
     h_L2<-0
@@ -479,6 +427,22 @@ res_L2<- img - L2_img  ##residual image under L2-norm
 #############Visualization##################
 ############################################
 image(rot90(L1_img,3),col = grey(seq(0,1,length=256)))
+
+#################################
+######### MSE ###################
+#################################
+MSD_L1
+MSD_L2
+
+################################
+#### Parameter Estimates #######
+################################
+
+####### For L1-norm ############
+# th1      ##Estimate of rotation angle   
+# s_L1     ##Estimate of zooming factor
+# h_L1     ##Estimate of x-coordinate of the translation parameter
+# m_L1     ##Estimate of y-coordinate of the translation parameter
 
 
 
